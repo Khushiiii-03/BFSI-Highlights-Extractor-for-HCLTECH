@@ -17,29 +17,29 @@ from bs4 import BeautifulSoup
 import fitz  
 from selenium.webdriver.chrome.service import Service
 
+import shutil
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
-import shutil
 
 def create_webdriver():
-    options = Options()
-    options.add_argument("--headless=new")
-    options.add_argument("--no-sandbox")
-    options.add_argument("--disable-dev-shm-usage")
-
     chrome_path = shutil.which("chromium") or shutil.which("chromium-browser")
     driver_path = shutil.which("chromedriver") or shutil.which("chromium-driver")
-
-    print("chrome path:", chrome_path)
-    print("driver path:", driver_path)
 
     if not chrome_path or not driver_path:
         raise Exception("Chrome or Chromedriver not found in Render environment")
 
+    options = Options()
     options.binary_location = chrome_path
+    options.add_argument("--headless")
+    options.add_argument("--no-sandbox")
+    options.add_argument("--disable-dev-shm-usage")
+    options.add_argument("--disable-gpu")
+    options.add_argument("--disable-features=VizDisplayCompositor")
+
     service = Service(driver_path)
     return webdriver.Chrome(service=service, options=options)
+
 
 st.set_page_config(page_title="BFSI Highlights Extractor", layout="centered")
 logo_path = r"images/hcl.png"
