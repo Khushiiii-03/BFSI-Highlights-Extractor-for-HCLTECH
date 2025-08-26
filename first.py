@@ -24,8 +24,12 @@ def create_webdriver():
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
 
+    # Use the Chromium installed by apt
+    options.binary_location = "/usr/bin/chromium-browser"
+
     service = Service("/usr/bin/chromedriver")
     return webdriver.Chrome(service=service, options=options)
+
 
 st.set_page_config(page_title="BFSI Highlights Extractor", layout="centered")
 logo_path = r"images/hcl.png"
