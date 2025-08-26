@@ -1,0 +1,8 @@
+streamlit
+selenium
+requests
+pdfplumber
+beautifulsoup4
+pymupdf
+python-docx
+reportlab
