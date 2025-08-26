@@ -16,8 +16,16 @@ from selenium.webdriver.common.by import By
 from bs4 import BeautifulSoup
 import fitz  
 
+def create_webdriver():
+    options = Options()
+    options.add_argument("--headless")
+    options.add_argument("--disable-gpu")
+    options.add_argument("--no-sandbox")
+    options.add_argument("--disable-dev-shm-usage")
+    return webdriver.Chrome(executable_path="/usr/bin/chromedriver", options=options)
+
 st.set_page_config(page_title="BFSI Highlights Extractor", layout="centered")
-logo_path = r"/Users/khushithakur/Downloads/HCLTECH/hcl.png"
+logo_path = r"images/hcl.png"
 
 # Styling
 st.markdown(
@@ -74,14 +82,14 @@ def get_base64_image(path):
         return f"data:image/{ext};base64,{encoded}"
 
 company_logos = {
-    "TCS": r"/Users/khushithakur/Downloads/HCLTECH/tcs.png",
-    "Tech Mahindra": r"/Users/khushithakur/Downloads/HCLTECH/techm.png",
-    "Mphasis": r"/Users/khushithakur/Downloads/HCLTECH/mphasis.png",
-    "Infosys": r"/Users/khushithakur/Downloads/HCLTECH/info.png",
-    "Zensar": r"/Users/khushithakur/Downloads/HCLTECH/zensar.png",
-    "Wipro": r"/Users/khushithakur/Downloads/HCLTECH/wipro.png",
-    "Persistent": r"/Users/khushithakur/Downloads/HCLTECH/persis.png",
-    "Cognizant": r"/Users/khushithakur/Downloads/HCLTECH/cog.png"
+    "TCS": "images/tcs.png",
+    "Tech Mahindra": "images/techm.png",
+    "Mphasis": "images/mphasis.png",
+    "Infosys": "images/info.png",
+    "Zensar": "images/zensar.png",
+    "Wipro": "images/wipro.png",
+    "Persistent": "images/persis.png",
+    "Cognizant": "images/cog.png"
 }
 
 options = list(company_logos.keys())
@@ -134,11 +142,7 @@ def extract_tcs(fy_input, quarter_input_tcs):
     highlights = []
     url = f"https://www.tcs.com/investor-relations/financial-statements#year={fy_input}&quarter={quarter_input_tcs}"
 
-    options = Options()
-    options.add_argument('--headless')
-    options.add_argument('--disable-gpu')
-    options.add_argument('--no-sandbox')
-    driver = webdriver.Chrome(options=options)
+    driver = create_webdriver()   
     driver.get(url)
     time.sleep(7)
 
@@ -442,9 +446,7 @@ def extract_cognizant(fy_input, quarter_code):
 # NEWS HEADLINES SCRAPERS 
 
 def fetch_wipro():
-    options = Options()
-    options.add_argument("--headless"); options.add_argument("--disable-gpu"); options.add_argument("--no-sandbox")
-    driver = webdriver.Chrome(options=options)
+    driver = create_webdriver()
     try:
         driver.get("https://www.wipro.com/newsroom/")
         time.sleep(5)
@@ -460,9 +462,7 @@ def fetch_wipro():
 
 
 def fetch_infosys():
-    options = Options()
-    options.add_argument("--headless"); options.add_argument("--disable-gpu"); options.add_argument("--no-sandbox")
-    driver = webdriver.Chrome(options=options)
+    driver = create_webdriver()
     try:
         driver.get("https://www.infosys.com/newsroom/press-releases.html")
         time.sleep(5)
@@ -494,9 +494,7 @@ def fetch_persistent():
 
 
 def fetch_zensar():
-    options = Options()
-    options.add_argument("--headless"); options.add_argument("--disable-gpu"); options.add_argument("--no-sandbox")
-    driver = webdriver.Chrome(options=options)
+    driver = create_webdriver()
     bfs_headlines = []
     try:
         base_url = "https://www.zensar.com/about/pr-news?page={}"
