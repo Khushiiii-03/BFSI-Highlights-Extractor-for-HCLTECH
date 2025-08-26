@@ -8,4 +8,4 @@ pymupdf
 reportlab
 chromedriver-binary
 undetected-chromedriver
-
+webdriver-manager
