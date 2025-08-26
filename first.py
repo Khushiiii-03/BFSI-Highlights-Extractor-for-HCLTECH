@@ -15,6 +15,7 @@ from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from bs4 import BeautifulSoup
 import fitz  
+from selenium.webdriver.chrome.service import Service
 
 def create_webdriver():
     options = Options()
@@ -22,7 +23,9 @@ def create_webdriver():
     options.add_argument("--disable-gpu")
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
-    return webdriver.Chrome(executable_path="/usr/bin/chromedriver", options=options)
+
+    service = Service("/usr/bin/chromedriver")
+    return webdriver.Chrome(service=service, options=options)
 
 st.set_page_config(page_title="BFSI Highlights Extractor", layout="centered")
 logo_path = r"images/hcl.png"
