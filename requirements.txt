@@ -2,7 +2,10 @@ streamlit
 selenium
 requests
 pdfplumber
+python-docx
 beautifulsoup4
 pymupdf
-python-docx
 reportlab
+chromedriver-binary
+undetected-chromedriver
+
