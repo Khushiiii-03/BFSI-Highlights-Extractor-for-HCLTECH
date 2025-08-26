@@ -19,15 +19,17 @@ from selenium.webdriver.chrome.service import Service
 
 def create_webdriver():
     options = Options()
-    options.add_argument("--headless")
+    options.add_argument("--headless=new")  # modern headless mode
     options.add_argument("--disable-gpu")
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
 
-    # Use the Chromium installed by apt
-    options.binary_location = "/usr/bin/chromium-browser"
+    # Tell Selenium where Chromium is installed
+    options.binary_location = "/usr/bin/chromium"
 
+    # Point to chromedriver installed via apt
     service = Service("/usr/bin/chromedriver")
+
     return webdriver.Chrome(service=service, options=options)
 
 
