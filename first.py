@@ -28,22 +28,18 @@ def create_webdriver():
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
 
-    # chromium path
     chrome_path = shutil.which("chromium") or shutil.which("chromium-browser")
     driver_path = shutil.which("chromedriver") or shutil.which("chromium-driver")
 
-    print("Chrome path:", chrome_path)
-    print("Driver path:", driver_path)
+    print("chrome path:", chrome_path)
+    print("driver path:", driver_path)
 
     if not chrome_path or not driver_path:
         raise Exception("Chrome or Chromedriver not found in Render environment")
 
     options.binary_location = chrome_path
     service = Service(driver_path)
-
     return webdriver.Chrome(service=service, options=options)
-
-
 
 st.set_page_config(page_title="BFSI Highlights Extractor", layout="centered")
 logo_path = r"images/hcl.png"
